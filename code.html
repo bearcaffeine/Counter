@@ -64,17 +64,88 @@
             <div class="row row-cols-1 row-cols-lg-2">
                 <div class="col-lg-8">
                     <pre class="line-numbers"><code class="language-javascript">
-                            //Call Hello World
-                            function HelloWorld(){
-                                alert("hello world");
+                        //get the values from the page
+                        //stars or controler funciton
+                        function getValues(){
+                            //get values from the page
+                            let startValue = document.getElementById("startValue").value;
+                            let endValue = document.getElementById("endValue").value;
+
+                            //parse into Integers
+                            startValue = parseInt(startValue);
+                            endValue = parseInt(endValue);
+
+                            if(Number.isInteger(startValue) && Number.isInteger(endValue)){
+                                //we need to call generateNumbers
+                                let numbers = generateNumber(startValue, endValue);
+                                
+                                //we need to call displayNumbers
+                                displayNumbers(numbers);
+                            }else{
+                                alert("You must enter integers.");
                             }
+
+                        }
+
+                        //generate numbers from start value to end value
+                        //logic function(s)
+                        function generateNumber(sValue, eValue){
+                            let numbers = [];
+
+                            //we want to get all number from start to end
+                            for(let index = sValue; index <= eValue; index++){
+                                
+                                //this will execute in a loop until index = eValue
+                                numbers.push(index);
+                            }
+
+                            return numbers;
+                        }
+
+                        //display the numbers and mark even numbers bold
+                        //display or view function
+                        function displayNumbers(numbers){
+
+                            let templateRows = "";
+
+                            for (let index = 0; index < numbers.length; index++) {
+                                
+                                let className = "even";
+                                let number = numbers[index];
+
+                                if(number % 2 == 0){
+                                    className = "even";
+                                }else {
+                                    className="odd"  
+                                }
+                                //This does not render correctly with Prisim see the source from github
+                                templateRows += `<tr><td class="${className}">${number}</td></tr>`;
+                            }
+
+                            document.getElementById("results").innerHTML = templateRows;
+
+                        }
+
                     </code>
                     </pre>
                 </div>
                 <div class="col-lg-4">
-                    <p>The Code is structed in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that displays an alert with a message of "Hello World".</p>
+                    <p>The Counter javascript grapped the values from the application page and display all numbers from the start value and end value.</p>
+                    <h5>getValues()</h5>
+                    <p>The getValues function completes four tasks. 
+                        <ol>
+                            <li>Stores the values of the start and end values from the application page</li>
+                            <li>Validates that the values passed into the function are numbers and not strings</li>
+                            <li>Calls generateNumbers function to create the array from start value to end value</li>
+                            <li>Pases the array values to the displayNumbers function to render the results</li>
+                        </ol>
+                    </p>
+
+                    <h5>generateNumber(sValue, eValue)</h5>
+                    <p>Creates the array of values loops through sValue, the start value from the applicaiton, and the eValue, the end value from the applicaiton. Once the loop completes the array is returned to the getValues function.</p>
+
+                    <h5>displayNumber(numbers)</h5>
+                    <p>Display numbers contains the logic to determine if the current value in the numbers array is even or odd using mod function. If the value is even a className even is assigned and passed to the templateRows string. A className of odd is assigned for all other numbers and appended to the templateRows strings. Once looped through the numbers array the templateRows variable is inserted at the results element id in html. <strong>NOTE:</strong> the templateRows (line 56) assignement does not display correctly in the the Prism plugin. Please refer to github link for correct code, <a target="_blank" href="https://github.com/bearcaffeine/Counter">Github: Counter Link</a></p>
                 </div>
             </div>
         </div>
