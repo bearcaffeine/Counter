@@ -1,6 +1,6 @@
 
 //get the values from the page
-//stars or controler funciton
+//stars or controller function
 function getValues(){
     //get values from the page
     let startValue = document.getElementById("startValue").value;
